@@ -17,11 +17,13 @@ public class MockGodRepo : IGodRepo
             new[] { "The Everwind", "Master of the Tides" })
     };
 
+    /// <inheritdoc />
     public IEnumerable<God> GetGods()
     {
         return _gods;
     }
 
+    /// <inheritdoc/>
     public God? GetGodByName(string name)
     {
         return _gods.FirstOrDefault(god => god != null && god.Name.Equals(name),
