@@ -8,7 +8,12 @@ namespace WebApplication1.Controllers;
 [ApiController]
 public class GodsController : ControllerBase
 {
-    private readonly MockGodRepo _repo = new();
+    private readonly IGodRepo _repo;
+
+    public GodsController(IGodRepo repo)
+    {
+        _repo = repo;
+    }
 
     [HttpGet]
     public ActionResult<IEnumerable<God>> GetGods()
