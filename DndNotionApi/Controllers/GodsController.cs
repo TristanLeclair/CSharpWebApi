@@ -20,6 +20,6 @@ public class GodsController : ControllerBase
     public ActionResult<IEnumerable<God>> GetGodByName(string name)
     {
         var god = _repo.GetGodByName(name);
-        return god != null ? Ok(god) : BadRequest("No god exists with name {name}");
+        return god != null ? Ok(god) : BadRequest($"No god exists with name {name}");
     }
 }
