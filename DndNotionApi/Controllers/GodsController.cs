@@ -16,15 +16,17 @@ public class GodsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<God>> GetGods()
+    public async Task<ActionResult<IEnumerable<God>>> GetGods()
     {
-        return Ok(_repo.GetGods());
+        return Ok(await _repo.GetAllGods());
     }
 
     [HttpGet("{name}")]
-    public ActionResult<IEnumerable<God>> GetGodByName(string name)
+    public async Task<ActionResult<IEnumerable<God>>> GetGodByName(string name)
     {
-        var god = _repo.GetGodByName(name);
-        return god != null ? Ok(god) : BadRequest($"No god exists with name {name}");
+        var god = await _repo.GetGodByName(name);
+        return god != null
+            ? Ok(god)
+            : BadRequest($"No god exists with name {name}");
     }
 }

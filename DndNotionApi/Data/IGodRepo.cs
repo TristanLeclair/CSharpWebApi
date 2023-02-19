@@ -8,11 +8,12 @@ public interface IGodRepo
     /// Returns an IEnumerable of all the gods
     /// </summary>
     /// <returns>IEnumerable of all gods</returns>
-    IEnumerable<God> GetGods();
+    Task<IEnumerable<God>> GetAllGods();
+
     /// <summary>
     /// Returns the god with the passed in name
     /// </summary>
     /// <param name="name">Name of the god to get</param>
     /// <returns>God or null if no god with that name exists</returns>
-    God? GetGodByName(string name);
+    Task<God?> GetGodByName(string name);
 }

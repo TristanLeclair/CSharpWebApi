@@ -12,20 +12,20 @@ public class MockGodRepoTests
         // Arrange
 
         // Act
-        var gods = _godRepo.GetGods();
+        var gods = _godRepo.GetAllGods();
 
         //Assert
         Assert.NotNull(gods);
     }
 
     [Fact]
-    public void GetGodByName_ReturnsGod_WhenGodExists()
+    public async void GetGodByName_ReturnsGod_WhenGodExists()
     {
         // Arrange
-        const string godName = "Yi the Creator God";
+        const string godName = "Yi The Creator God";
 
         // Act
-        var god = _godRepo.GetGodByName(godName);
+        var god = await _godRepo.GetGodByName(godName);
 
         //Assert   
         Assert.NotNull(god);
@@ -33,13 +33,13 @@ public class MockGodRepoTests
     }
 
     [Fact]
-    public void GetGodByName_ReturnsNull_WhenGodDoesNotExist()
+    public async void GetGodByName_ReturnsNull_WhenGodDoesNotExist()
     {
         // Arrange
-        const string godName = "Yi the Non Creator God";
+        const string godName = "Yi The Non Creator God";
 
         // Act
-        var god = _godRepo.GetGodByName(godName);
+        var god = await _godRepo.GetGodByName(godName);
 
         //Assert
         Assert.Null(god);

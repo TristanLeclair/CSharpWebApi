@@ -1,14 +1,17 @@
-﻿namespace WebApplication1.Models;
+﻿using System.ComponentModel;
+using WebApplication1.DTO;
+
+namespace WebApplication1.Models;
 
 public enum Alignment
 {
-    LawfulGood,
-    NeutralGood,
-    ChaoticGood,
-    LawfulNeutral,
-    TrueNeutral,
-    ChaoticNeutral,
-    LawfulEvil,
-    NeutralEvil,
-    ChaoticEvil
+    LG,
+    NG,
+    CG,
+    LN,
+    TN,
+    CN,
+    LE,
+    NE,
+    CE
 }
