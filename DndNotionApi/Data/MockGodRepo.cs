@@ -2,6 +2,9 @@
 
 namespace WebApplication1.Data;
 
+/// <summary>
+///     Mocked IGodRepo for testing.
+/// </summary>
 public class MockGodRepo : IGodRepo
 {
     private readonly IEnumerable<God> _gods = new[]
@@ -23,11 +26,11 @@ public class MockGodRepo : IGodRepo
         return Task.FromResult(_gods);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public Task<God?> GetGodByName(string name)
     {
         return Task.FromResult(_gods.FirstOrDefault(
             god => god != null && god.Name.Equals(name),
-            defaultValue: null));
+            null));
     }
 }

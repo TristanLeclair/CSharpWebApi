@@ -4,6 +4,9 @@ using WebApplication1.Utils.Api;
 
 namespace WebApplication1.Data;
 
+/// <summary>
+///     God Repo connected to the Notion API.
+/// </summary>
 public class ApiGodRepo : IGodRepo
 {
     private const string CreatorGodsDbId = "78ba72de20954d91b387dd76aec36fd6";
@@ -31,28 +34,6 @@ public class ApiGodRepo : IGodRepo
         return await GetGodsHttp();
     }
 
-    private static async Task<IEnumerable<God>> GetGodsHttp()
-    {
-        // var archGodsJson =
-        //     await NotionApiCaller.GetFromDatabase<GodsJson>(CreatorGodsDbId);
-        // var darkGodsJson =
-        //     await NotionApiCaller.GetFromDatabase<GodsJson>(DarkGodsDbId);
-
-        IEnumerable<God> results = Array.Empty<God>();
-        foreach (var dbIdsValue in DbIds.Values)
-        {
-            var temp =
-                await NotionApiCaller
-                    .GetFromDatabase<GodsJson, List<God>>(dbIdsValue);
-            IEnumerable<God> enumerable = results as God[] ?? results.ToArray();
-            results = !enumerable.Any()
-                ? temp.Process()
-                : enumerable.Concat(temp.Process());
-        }
-
-        return results;
-    }
-
     /// <inheritdoc />
     public async Task<God?> GetGodByName(string name)
     {
@@ -62,5 +43,42 @@ public class ApiGodRepo : IGodRepo
         if (enumerable.Length > 1 || !enumerable.Any())
             return await Task.FromResult<God?>(null);
         return enumerable.First();
+    }
+
+    private static async Task<IEnumerable<God>> GetGodsHttp()
+    {
+        // var archGodsJson =
+        //     await NotionApiCaller.GetFromDatabase<GodsJson>(CreatorGodsDbId);
+        // var darkGodsJson =
+        //     await NotionApiCaller.GetFromDatabase<GodsJson>(DarkGodsDbId);
+
+        IEnumerable<God> results = Array.Empty<God>();
+        try
+        {
+            foreach (var dbIdsValue in DbIds.Values)
+            {
+                var temp =
+                    await NotionApiCaller
+                        .GetFromDatabase<GodsJson, List<God>>(dbIdsValue);
+                IEnumerable<God> enumerable =
+                    results as God[] ?? results.ToArray();
+                results = !enumerable.Any()
+                    ? temp.Process()
+                    : enumerable.Concat(temp.Process());
+            }
+        }
+        // TODO: figure out what to return here
+        catch (NullReferenceException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return results;
     }
 }
