@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using WebApplication1.DTO;
 using MediaTypeHeaderValue = System.Net.Http.Headers.MediaTypeHeaderValue;
 
 namespace WebApplication1.Utils.Api;
@@ -16,7 +17,7 @@ public static class NotionApiCaller
             new MediaTypeWithQualityHeaderValue("application/json"));
     }
 
-    public static async Task<T> GetFromDatabase<T>(string databaseId)
+    public static async Task<T> GetFromDatabase<T, TU> (string databaseId) where T : IProcessableJson<TU>
     {
         var request = new HttpRequestMessage
         {

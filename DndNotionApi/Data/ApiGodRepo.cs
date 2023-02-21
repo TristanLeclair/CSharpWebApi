@@ -43,7 +43,7 @@ public class ApiGodRepo : IGodRepo
         {
             var temp =
                 await NotionApiCaller
-                    .GetFromDatabase<GodsJson>(dbIdsValue);
+                    .GetFromDatabase<GodsJson, List<God>>(dbIdsValue);
             IEnumerable<God> enumerable = results as God[] ?? results.ToArray();
             results = !enumerable.Any()
                 ? temp.Process()
