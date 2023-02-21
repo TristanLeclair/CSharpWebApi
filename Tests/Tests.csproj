@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WebApplication1\WebApplication1.csproj" />
+      <ProjectReference Include="..\DndNotionApi\DndNotionApi.csproj" />
     </ItemGroup>
 
 </Project>
